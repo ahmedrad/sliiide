@@ -1,0 +1,272 @@
+@import 'nav-icon.css';
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background-image: url('img/background2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  color: white;
+  font-family: 'PayTone One';
+  font-weight: 300;
+  font-size: 60px;
+  margin: 0;
+  padding: 0 20px;
+}
+
+h2 {
+  color: white;
+  font-family: Lato;
+  font-weight: 300;
+  font-size: 32px;
+  margin: 10px auto 30px auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.flex-center-wrapper {
+  display: flex;
+  display: -webkit-flex;
+  align-content: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -webkit-align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  text-align: center;
+}
+
+.flex-row {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.flex-column {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.slider-toggle {
+	display: block;
+	margin: 10px 15px 10px 15px;
+	color: white;
+	font-size: 18px;
+	border: none;
+  letter-spacing: 1px;
+  font-family: Lato;
+  width: 50px;
+  height: 20px;
+  border-radius: 100px;
+  text-align: center;
+  background-color: rgb(43, 57, 69);
+  transition: background-color 0.5s;
+}
+
+.buttons-container span {
+  color: white;
+  font-family: Lato;
+  font-size: 18px;
+  letter-spacing: 1.2px;
+}
+
+.selected {
+    background-color: rgb(18, 209, 234);
+}
+
+.sliding-menu {
+  background-color: rgb(40, 38, 38);
+  visibility: hidden;
+  position: fixed;
+  overflow: hidden;
+}
+
+.sliding-menu a, .sliding-menu p {
+  font-family: Lato;
+  font-weight: 100;
+  letter-spacing: 2px;
+  font-size: 18px;
+  color: rgb(200, 200, 200);
+  text-decoration: none;
+  margin: 0 20px;
+}
+
+.sliding-menu ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+.sliding-menu li {
+  margin: 40px auto 40px auto;
+}
+
+.sliding-menu hr {
+  width: 50%;
+  min-width: 100px;
+  border-color: rgb(18, 209, 234);
+}
+
+.exit {
+  position: absolute;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+.left-exit, .top-exit, .bottom-exit {
+  top: 20px;
+  right: 40px;
+}
+
+.right-exit {
+  top: 20px;
+  left: 40px;
+}
+
+.buttons-container {
+  max-width: 700px;
+  margin: 0 auto 0 auto;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.note {
+  position: absolute;
+  width: 250px;
+}
+
+.left-note {
+  bottom: 3%;
+  left: 5%;
+}
+
+.right-note {
+  bottom: 10%;
+  right: 5%;
+}
+
+.top-note {
+  top: 3%;
+  right: 5%;
+}
+
+.bottom-note {
+  bottom: 5%;
+  right: 3%;
+}
+
+.note p {
+  font-family: Gochi Hand;
+  font-size: 18px;
+  color: white;
+  margin: 20px;
+  width: 200px;
+  position: static;
+  display: inline-block;
+}
+
+.arrow {
+  fill: white;
+  height: 25px;
+  width: 25px;
+  margin: 0 auto 0 auto;
+  display: inline-block;
+}
+
+/*.left-arrow {
+  -webkit-transform: rotateZ(-45deg);
+  -ms-transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg);
+}*/
+
+.top-arrow {
+  -webkit-transform: rotateZ(90deg);
+  -ms-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+
+.right-arrow {
+  -webkit-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+
+.bottom-arrow {
+  -webkit-transform: rotateZ(-90deg);
+  -ms-transform: rotateZ(-90deg);
+  transform: rotateZ(-90deg);
+}
+
+.left-menu, .right-menu {width: 300px;}
+.top-menu {height: 100%;}
+.bottom-menu {height:100px;}
+
+.rotate {
+  -webkit-transform: rotateY(360deg);
+  -ms-transform: rotateY(360deg);
+  transform: rotateY(360deg);
+}
+
+.display-off {
+  display: none;
+}
+
+.newsletter-signup span {
+  margin: 10px 20px;
+  font-weight: 300;
+  color: white;
+  font-family: Lato;
+  letter-spacing: 0.5px;
+}
+
+.newsletter-signup input {
+  padding: 10px 20px;
+  border: 0;
+}
+
+.cta {
+  background-color: rgb(18, 209, 234);
+  font-family: Lato;
+  color: white;
+  padding: 10px 20px;
+  border: 0;
+  margin: 0 10px;
+}
+
+.social {
+  -webkit-transition: background-color 0.5s;
+  transition: background-color 0.5s;
+}
+
+.social:hover {
+  background-color: rgb(67, 118, 129)
+}
+
+@media only screen and (max-width: 600px)
+{
+  .bottom-menu {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    height: 200px
+  }
+
+  .newsletter-signup input {
+    display: block;
+    width: 150px;
+    margin: 15px auto;
+    padding: 10px 0;
+  }
+
+  .newsletter-signup button {
+    width: 150px;
+    margin: auto;
+  }
+}
