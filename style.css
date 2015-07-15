@@ -244,6 +244,7 @@ h2 {
 .social {
   -webkit-transition: background-color 0.5s;
   transition: background-color 0.5s;
+  width: 80px;
 }
 
 .social:hover {
