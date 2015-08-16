@@ -254,8 +254,6 @@ h2 {
 @media only screen and (max-width: 600px)
 {
   .bottom-menu {
-    -webkit-flex-direction: column;
-    flex-direction: column;
     height: 200px
   }
 
