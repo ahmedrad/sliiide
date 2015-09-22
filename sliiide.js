@@ -253,6 +253,10 @@
   $toggle.click(handleToggle);
   $sliiider.find('a').on('click', function() {deactivate()});
   $exit.on('click', function() {deactivate()});
+  if(settings.shadow)
+  {
+	  $(document).on('click', '#sliiide-shadow', function() {deactivate();});
+  }
 
   var deleteProp = function() {
     $body.css(bodyResetProp);
