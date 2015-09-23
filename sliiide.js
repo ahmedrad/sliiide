@@ -10,6 +10,7 @@
       animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
       body_slide: true,
       no_scroll: true,
+      shadow: false
     }, options );
 
     var newSize;
@@ -180,6 +181,17 @@
 
 
   var activate = function() {
+	if(settings.shadow)
+	{
+		var $sha = $("#sliiide-shadow");
+		if($sha.length == 0)
+		{
+			$sha = $('<div id="sliiide-shadow"></div>');
+			$sha.css({'position':'absolute','top':0,'left':0, 'height':'100vh', 'background':'#000', 'opacity':'0', 'z-index':'2000','cursor':'pointer'});
+			$body.append($sha);
+		}
+		$sha.css({'width':'100vw', 'opacity':'0.5'});
+	}  
     siiize();
     $sliiider.css('visibility','initial');
     if(settings.body_slide) {
@@ -205,7 +217,11 @@
   }
 
   function deactivate() {
-
+	  if(settings.shadow)
+		{
+			var $sha = $("#sliiide-shadow");
+			$sha.css({'width':'0', 'opacity':'0'});
+		}  
     $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
 
     if(settings.body_slide) {
@@ -237,6 +253,10 @@
   $toggle.click(handleToggle);
   $sliiider.find('a').on('click', function() {deactivate()});
   $exit.on('click', function() {deactivate()});
+  if(settings.shadow)
+  {
+	  $(document).on('click', '#sliiide-shadow', function() {deactivate();});
+  }
 
   var deleteProp = function() {
     $body.css(bodyResetProp);
