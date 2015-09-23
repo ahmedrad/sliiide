@@ -187,7 +187,7 @@
 		if($sha.length == 0)
 		{
 			$sha = $('<div id="sliiide-shadow"></div>');
-			$sha.css({'position':'absolute','top':0,'left':0, 'height':'100vh', 'background':'#000', 'opacity':'0', 'z-index':'2000'});
+			$sha.css({'position':'absolute','top':0,'left':0, 'height':'100vh', 'background':'#000', 'opacity':'0', 'z-index':'2000','cursor':'pointer'});
 			$body.append($sha);
 		}
 		$sha.css({'width':'100vw', 'opacity':'0.5'});
