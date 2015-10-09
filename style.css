@@ -280,5 +280,9 @@ h2 {
   .buttons-container span {
   	font-size: 14px;
   }
+  
+  .note p {
+  	font-size: 14px;
+  }
 
 }
