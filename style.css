@@ -274,7 +274,11 @@ h2 {
   }
   
   h2 {
-  	font-size: 22px;
+  	font-size: 20px;
+  }
+  
+  .buttons-container span {
+  	font-size: 14px;
   }
 
 }
