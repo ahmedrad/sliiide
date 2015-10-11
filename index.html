@@ -157,7 +157,7 @@
     </li>
   </ul><span class="sliiider-exit exit left-exit">&#215</span>
 </div>
-<div class="sliding-menu flex-center-wrapper flex-column right-menu">
+<div class="sliding-menu flex-center-wrapper flex-column right-menu display-off">
   <span class="sliiider-exit exit right-exit">&#215</span>
   <ul>
     <li><a href="http://twitter.com/aradwan_88" target="_blank"><img class="social" src="img/twitter-white.png"></a></li>
@@ -165,13 +165,13 @@
     <li><a href="http://www.linkedin.com/in/radwanahmed" target="_blank"><img class="social" src="img/linkedin-white.png"></a></li>
   </ul>
 </div>
-<div class="sliding-menu flex-center-wrapper flex-column top-menu">
+<div class="sliding-menu flex-center-wrapper flex-column top-menu display-off">
   <span class="sliiider-exit exit top-exit">&#215</span>
   <h2>
     Did you know about our awesome upcoming event? Click here to get all the details!
   </h2><button class="cta">Show Me More</button>
 </div>
-<div class="sliding-menu bottom-menu flex-center-wrapper flex-row">
+<div class="sliding-menu bottom-menu flex-center-wrapper flex-row display-off">
   <span class="sliiider-exit exit bottom-exit">&#215</span>
     <iframe src="https://ghbtns.com/github-btn.html?user=ahmedrad&repo=sliiide&type=star&count=true&size=large&v=2" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
     <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ahmedrad.github.io/sliiide" data-text="Just showing some love to this jQuery plugin!" data-via="aradwan_88" data-size="large" data-hashtags="jquery">Tweet</a>
@@ -191,11 +191,13 @@ var clickHandler = function() {
   var menuPlace = $button.attr('data-link');
   var note;
   menu.reset();
+  $('.sliding-menu').not('.'+menuPlace).addClass('display-off');
   $button.addClass('selected');
   $('.slider-toggle').not($button).removeClass('selected');
   menu = $('.'+menuPlace).sliiide({place: place, exit_selector: '.'+place+'-exit', toggle: '#nav-icon2'});
   $navIcon.addClass('flip');
   $('.note[data-link="'+menuPlace+'"]').fadeIn(700).css('display','').removeClass('display-off');
+  $('.'+menuPlace).removeClass('display-off');
 }
 toggles.on('click', clickHandler)
 </script>
