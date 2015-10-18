@@ -181,7 +181,7 @@
 
   var activate = function() {
     siiize();
-    $sliiider.css('visibility','initial');
+    $sliiider.css('visibility','visible');
     if(settings.body_slide) {
       $body.css(prefixCSS(bodySlidePrepare));
       $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
