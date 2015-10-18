@@ -158,9 +158,23 @@ h2 {
   right: 5%;
 }
 
+.topleft-note {
+  position: fixed;
+  top: 25px;
+  left: 100px;
+}
+
 .bottom-note {
   bottom: 5%;
   right: 3%;
+}
+
+#demo-note p {
+  text-align: left;
+  font-family: Gochi Hand;
+  font-size: 18px;
+  color: white;
+  margin: 20px;
 }
 
 .note p {
@@ -181,16 +195,16 @@ h2 {
   display: inline-block;
 }
 
-/*.left-arrow {
-  -webkit-transform: rotateZ(-45deg);
-  -ms-transform: rotateZ(-45deg);
-  transform: rotateZ(-45deg);
-}*/
-
 .top-arrow {
   -webkit-transform: rotateZ(90deg);
   -ms-transform: rotateZ(90deg);
   transform: rotateZ(90deg);
+}
+
+.topleft-arrow {
+  -webkit-transform: rotateZ(150deg);
+  -ms-transform: rotateZ(150deg);
+  transform: rotateZ(150deg);
 }
 
 .right-arrow {
