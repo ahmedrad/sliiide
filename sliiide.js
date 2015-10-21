@@ -1,5 +1,21 @@
 (function ($) {
 
+  var ie = (function(){
+
+    var undef,
+    v = 3,
+    div = document.createElement('div'),
+    all = div.getElementsByTagName('i');
+
+    while (
+      div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+      all[0]
+    );
+
+    return v > 4 ? v : undef;
+
+  }());
+
   $.fn.sliiide = function(options) {
 
     var settings = $.extend({
@@ -85,7 +101,7 @@
         activateAnimation: {transform: ''},
         deactivateAnimation: {transform: ''}
       }
-    }
+    };
 
     var Prop = {
 
@@ -94,7 +110,7 @@
         activateAnimation: {transform: 'translateX(0)'},
         deactivateAnimation: {transform: 'translateX(-100%)'},
         size: function (wHeight, wWidth) {
-          return {height: wHeight}
+          return {height: wHeight};
         }
       },
 
@@ -103,7 +119,7 @@
         activateAnimation: {transform: 'translateX(0)'},
         deactivateAnimation: {transform: 'translateX(100%)'},
         size: function (wHeight, wWidth) {
-          return {height: wHeight}
+          return {height: wHeight};
         }
 
       },
@@ -113,7 +129,7 @@
         activateAnimation: {transform: 'translateY(0)'},
         deactivateAnimation: {transform: 'translateY(-100%)'},
         size: function (wHeight, wWidth) {
-          return {width: wWidth}
+          return {width: wWidth};
         }
       },
 
@@ -122,10 +138,10 @@
         activateAnimation: {transform: 'translateY(0)'},
         deactivateAnimation: {transform: 'translateY(100%)'},
         size: function (wHeight, wWidth) {
-          return {width: wWidth}
+          return {width: wWidth};
         }
       }
-    }
+    };
 
     var prefixCSS = function(cssProp) {
       $.each(cssProp, function(k, v) {
@@ -146,7 +162,7 @@
     });
 
     return cssProp;
-  }
+  };
 
   var siiize = function() {
     var windowSize = {};
@@ -155,7 +171,7 @@
     newSize = Prop[settings.place].size(windowSize.height, windowSize.width);
     $sliiider.css(newSize);
     setSlideDistance();
-  }
+  };
 
   var setSlideDistance = function() {
     if(settings.body_slide)
@@ -170,7 +186,7 @@
       }
       bodySlideProp['set'+settings.place](bodySlideDistance);
     }
-  }
+  };
 
   var prepare = function() {
     $sliiider.css(prefixCSS(prepareProperties));
@@ -188,7 +204,7 @@
     }
 
     else {
-      $sliiider.css(prefixCSS(Prop[settings.place]["activateAnimation"]));
+      $sliiider.css(prefixCSS(Prop[settings.place]['activateAnimation']));
     }
 
     if(settings.no_scroll)  {
@@ -196,13 +212,13 @@
     }
 
     clicked = true;
-  }
+  };
 
   var hideSlider = function(e) {
     $sliiider.css('visibility','hidden');
     $body.css(bodyResetProp);
     $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
-  }
+  };
 
   function deactivate() {
 
@@ -232,18 +248,18 @@
     {activate();}
     else
     {deactivate();}
-  }
+  };
 
   $toggle.click(handleToggle);
-  $sliiider.find('a').on('click', function() {deactivate()});
-  $exit.on('click', function() {deactivate()});
+  $sliiider.find('a').on('click', function() {deactivate();});
+  $exit.on('click', function() {deactivate();});
 
   var deleteProp = function() {
     $body.css(bodyResetProp);
     $sliiider.css(sliiiderResetProp);
     $(window).off('resize', siiize);
     $toggle.off('click', handleToggle);
-  }
+  };
 
 
   var menu = {
@@ -252,12 +268,12 @@
       deactivate();
       // $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
     },
-    deactivate: function() {deactivate()},
-    activate: function() {activate()}
+    deactivate: function() {deactivate();},
+    activate: function() {activate();}
   };
 
   return menu;
-}
+};
 
 var keys = [37, 38, 39, 40];
 
