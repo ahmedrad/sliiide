@@ -16,6 +16,8 @@
 
   }());
 
+  console.log(ie);
+
   $.fn.sliiide = function(options) {
 
     var settings = $.extend({
