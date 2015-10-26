@@ -211,11 +211,11 @@
       $body.css(prefixCSS(bodySlidePrepare));
       $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
       if((ie !== false) && (ie <= 11))
-        {$sliiider.css(prefixCSS(Prop[settings.place]['activateAnimation']));}
+        {$sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));}
     }
 
     else {
-      $sliiider.css(prefixCSS(Prop[settings.place]['activateAnimation']));
+      $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
     }
 
     if(settings.no_scroll)  {
@@ -237,6 +237,8 @@
 
     if(settings.body_slide) {
       $body.css(prefixCSS(bodySlideProp[settings.place].deactivateAnimation));
+      if((ie !== false) && (ie <= 11))
+        {$sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));}
     }
 
     else {
