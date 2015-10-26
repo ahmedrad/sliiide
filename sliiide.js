@@ -1,22 +1,29 @@
 (function ($) {
 
-  var ie = (function(){
+  var ie = (function detectIE() {
+    var ua = window.navigator.userAgent;
 
-    var undef,
-    v = 3,
-    div = document.createElement('div'),
-    all = div.getElementsByTagName('i');
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+      // IE 10 or older => return version number
+      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
 
-    while (
-      div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-      all[0]
-    );
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+      // IE 11 => return version number
+      var rv = ua.indexOf('rv:');
+      return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
 
-    return v > 4 ? v : undef;
-
-  }());
-
-  console.log(ie);
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) {
+      // IE 12 => return version number
+      return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+    // other browser
+    return false;
+  })();
 
   $.fn.sliiide = function(options) {
 
@@ -203,6 +210,8 @@
     if(settings.body_slide) {
       $body.css(prefixCSS(bodySlidePrepare));
       $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
+      if((ie !== false) && (ie <= 11))
+        {$sliiider.css(prefixCSS(Prop[settings.place]['activateAnimation']));}
     }
 
     else {
