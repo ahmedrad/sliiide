@@ -207,12 +207,29 @@
   var activate = function() {
     siiize();
     $sliiider.css('visibility','visible');
-    if(settings.body_slide) {
+    if(settings.body_slide)
+      {
       $body.css(prefixCSS(bodySlidePrepare));
       $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
       if((ie !== false) && (ie <= 11))
-        {$sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));}
-    }
+        {
+          $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
+        }
+
+      var windowHeight = $(window).height();
+      var scrollTop = $(window).scrollTop();
+      var sliiiderHeight = $sliiider.height();
+      var sliiiderOffsetTop = $sliiider.offset().top;
+      
+      if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom")
+        {
+          $sliiider.css('top', scrollTop);
+        }
+      if(((sliiiderOffsetTop !== scrollTop + windowHeight) && (settings.place === "bottom")))
+        {
+        $sliiider.css('top', scrollTop + windowHeight - sliiiderHeight).css('bottom','');
+        }
+      }
 
     else {
       $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
