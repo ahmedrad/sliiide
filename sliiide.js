@@ -205,7 +205,7 @@
 
 
   var activate = function() {
-    siiize();
+    siiize(); //sets the size of the slider menu and the distance the body will travel on sliding
     $sliiider.css('visibility','visible');
     if(settings.body_slide)
       {
@@ -216,11 +216,13 @@
           $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
         }
 
+      //dealing with the browser bug of inability to transform fixed elements
+
       var windowHeight = $(window).height();
       var scrollTop = $(window).scrollTop();
       var sliiiderHeight = $sliiider.height();
       var sliiiderOffsetTop = $sliiider.offset().top;
-      
+
       if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom")
         {
           $sliiider.css('top', scrollTop);
@@ -246,6 +248,7 @@
     $sliiider.css('visibility','hidden');
     $body.css(bodyResetProp);
     $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
+    prepare();
   };
 
   function deactivate() {
