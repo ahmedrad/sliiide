@@ -160,8 +160,8 @@ h2 {
 
 .topleft-note {
   position: fixed;
-  top: 25px;
-  left: 100px;
+  top: 75px;
+  left: 45px;
 }
 
 .bottom-note {
@@ -174,7 +174,7 @@ h2 {
   font-family: Gochi Hand;
   font-size: 18px;
   color: white;
-  margin: 20px;
+  margin: 5px 15px;
 }
 
 .note p {
@@ -202,9 +202,9 @@ h2 {
 }
 
 .topleft-arrow {
-  -webkit-transform: rotateZ(150deg);
-  -ms-transform: rotateZ(150deg);
-  transform: rotateZ(150deg);
+  -webkit-transform: rotateZ(205deg);
+  -ms-transform: rotateZ(205deg);
+  transform: rotateZ(205deg);
 }
 
 .right-arrow {
@@ -295,7 +295,7 @@ h2 {
   	font-size: 14px;
   }
 
-  .note p {
+  .note p, #demo-note p {
   	font-size: 14px;
   }
 
