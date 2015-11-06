@@ -7,7 +7,7 @@ You have a div (probably a nav menu or a side bar) that you want to animate with
 
 ##Any Dependencies?
 The plugin is built on jQuery 2.1.0 but could potentially work with older and newer versions, give it a shot and let me know how it goes if you run into any problems. Otherwise, there’s no CSS file or anything else needed. 
-#this plugin officially supports chrome, firefox, safari, IE 10,11 and Edge
+####this plugin officially supports chrome, firefox, safari, IE 10,11 and Edge
 
 ##How to use it?
 1- Download the sliiide js file (or the minified version) from the github repo, include the js file before the body end tag and make sure jQuery is included before it
