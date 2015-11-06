@@ -1,27 +1,24 @@
 (function ($) {
 
+//get IE version if browser is IE
   var ie = (function detectIE() {
     var ua = window.navigator.userAgent;
 
     var msie = ua.indexOf('MSIE ');
     if (msie > 0) {
-      // IE 10 or older => return version number
       return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
     }
 
     var trident = ua.indexOf('Trident/');
     if (trident > 0) {
-      // IE 11 => return version number
       var rv = ua.indexOf('rv:');
       return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
     }
 
     var edge = ua.indexOf('Edge/');
     if (edge > 0) {
-      // IE 12 => return version number
       return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
     }
-    // other browser
     return false;
   })();
 
@@ -308,7 +305,10 @@
   return menu;
 };
 
-var keys = [37, 38, 39, 40];
+//enable and disable scroll
+// left: 37, up: 38, right: 39, down: 40,
+// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+var keys = {37: 1, 38: 1, 39: 1, 40: 1};
 
 function preventDefault(e) {
   e = e || window.event;
@@ -317,32 +317,29 @@ function preventDefault(e) {
   e.returnValue = false;
 }
 
-function keydown(e) {
-  for (var i = keys.length; i--;) {
-    if (e.keyCode === keys[i]) {
-      preventDefault(e);
-      return;
-    }
+function preventDefaultForScrollKeys(e) {
+  if (keys[e.keyCode]) {
+    preventDefault(e);
+    return false;
   }
-}
-
-function wheel(e) {
-  preventDefault(e);
 }
 
 function disable_scroll() {
-  if (window.addEventListener) {
-    window.addEventListener('DOMMouseScroll', wheel, false);
-  }
-  window.onmousewheel = document.onmousewheel = wheel;
-  document.onkeydown = keydown;
+  if (window.addEventListener) // older FF
+  window.addEventListener('DOMMouseScroll', preventDefault, false);
+  window.onwheel = preventDefault; // modern standard
+  window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
+  window.ontouchmove  = preventDefault; // mobile
+  document.onkeydown  = preventDefaultForScrollKeys;
 }
 
 function enable_scroll() {
-  if (window.removeEventListener) {
-    window.removeEventListener('DOMMouseScroll', wheel, false);
-  }
-  window.onmousewheel = document.onmousewheel = document.onkeydown = null;
+  if (window.removeEventListener)
+  window.removeEventListener('DOMMouseScroll', preventDefault, false);
+  window.onmousewheel = document.onmousewheel = null;
+  window.onwheel = null;
+  window.ontouchmove = null;
+  document.onkeydown = null;
 }
 
 }(jQuery));
