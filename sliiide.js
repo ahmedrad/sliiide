@@ -223,7 +223,7 @@
       var sliiiderHeight = $sliiider.height();
       var sliiiderOffsetTop = $sliiider.offset().top;
 
-      if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom")
+      if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom" && !(ie && ie <= 11 && settings.place ==="top"))
         {
           $sliiider.css('top', scrollTop);
         }
