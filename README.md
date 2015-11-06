@@ -6,7 +6,8 @@ First things first, this plugin is currently in Beta, please feel free to take i
 You have a div (probably a nav menu or a side bar) that you want to animate with a sliding effect from outside the viewport to inside the viewport. You want to have complete control over the distance this div slides but you don’t want to worry about how to position it or how to stretch it to match the screen’s dimensions. You also don’t wanna bother with how the animation affects the rest of the page, how to deal with scrolling and the logic behind activating and deactivating the menu.
 
 ##Any Dependencies?
-The plugin is built on jQuery 2.1.0 but could potentially work with older and newer versions, give it a shot and let me know how it goes if you run into any problems. Otherwise, there’s no CSS file or anything else needed. 
+The plugin is built on jQuery 2.1.0 but could potentially work with older and newer versions, give it a shot and let me know how it goes if you run into any problems. Otherwise, there’s no CSS file or anything else needed. This plugin manipulates inline styles for the element you're using as a slide menu and some manipulation to the body element. If you're also doing a lot of inline style manipulation you might run into conflicts.
+
 ####this plugin officially supports chrome, firefox, safari, IE 10/11 and Edge
 
 ##How to use it?
