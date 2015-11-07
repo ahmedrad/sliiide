@@ -172,8 +172,9 @@
 
   var siiize = function() {
     var windowSize = {};
+    var scroll = getScrollBarWidth();
     windowSize.height = $(window).height();
-    windowSize.width = $(window).width();
+    windowSize.width = $(window).width() + scroll;
     newSize = Prop[settings.place].size(windowSize.height, windowSize.width);
     $sliiider.css(newSize);
     setSlideDistance();
@@ -200,6 +201,31 @@
     setSlideDistance();
   };
 
+  var getScrollBarWidth = function() {
+    var inner = document.createElement('p');
+    inner.style.width = "100%";
+    inner.style.height = "200px";
+
+    var outer = document.createElement('div');
+    outer.style.position = "absolute";
+    outer.style.top = "0px";
+    outer.style.left = "0px";
+    outer.style.visibility = "hidden";
+    outer.style.width = "200px";
+    outer.style.height = "150px";
+    outer.style.overflow = "hidden";
+    outer.appendChild (inner);
+
+    document.body.appendChild (outer);
+    var w1 = inner.offsetWidth;
+    outer.style.overflow = 'scroll';
+    var w2 = inner.offsetWidth;
+    if (w1 === w2) { w2 = outer.clientWidth; }
+
+    document.body.removeChild (outer);
+
+    return (w1 - w2);
+  };
 
   var activate = function() {
     siiize(); //sets the size of the slider menu and the distance the body will travel on sliding
