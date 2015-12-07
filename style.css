@@ -2,7 +2,6 @@
 
 html {
   height: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -298,6 +297,10 @@ h2 {
 
   .note p, #demo-note p {
   	font-size: 14px;
+  }
+
+  .left-menu, .right-menu {
+    width: 270px
   }
 
 }

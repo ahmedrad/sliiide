@@ -45,8 +45,8 @@
     var bodyResetProp = {
       transform: '',
       'overflow-x': '',
-      'overflow-y': '',
       transition: '',
+      position: ''
     };
 
     var sliiiderResetProp = {
@@ -66,10 +66,17 @@
       position: 'fixed'
     };
 
+    var bodyChildrenProp = {
+      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve
+    };
+
+    var htmlProp = {
+      'overflow-x': 'hidden'
+    };
+
     var bodySlidePrepare = {
-      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
+      position: 'relative', // to make overflow-x hidden work with mobile browsers
       'overflow-x': 'hidden',
-      'overflow-y': 'hidden'
     };
 
 
@@ -244,7 +251,9 @@
     $sliiider.css('visibility','visible');
     if(settings.body_slide)
       {
-      $body.children().css(prefixCSS(bodySlidePrepare));
+      $body.css(prefixCSS(bodySlidePrepare));
+      $('html').css(htmlProp);
+      $body.children().css(prefixCSS(bodyChildrenProp));
       $body.children().css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
       if((ie !== false) && (ie <= 11))
         {
@@ -282,6 +291,7 @@
   var hideSlider = function(e) {
     $sliiider.css('visibility','hidden');
     $body.css(bodyResetProp);
+    $('html').css(bodyResetProp);
     $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
     prepare();
   };
@@ -334,7 +344,6 @@
     reset: function(name) {
       $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
       deactivate();
-      // $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
     },
     deactivate: function() {deactivate();},
     activate: function() {activate();}
