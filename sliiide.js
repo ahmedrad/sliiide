@@ -45,8 +45,8 @@
     var bodyResetProp = {
       transform: '',
       'overflow-x': '',
-      'overflow-y': '',
       transition: '',
+      position: ''
     };
 
     var sliiiderResetProp = {
@@ -66,10 +66,17 @@
       position: 'fixed'
     };
 
+    var bodyChildrenProp = {
+      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve
+    };
+
+    var htmlProp = {
+      'overflow-x': 'hidden'
+    };
+
     var bodySlidePrepare = {
-      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
+      position: 'relative', // to make overflow-x hidden work with mobile browsers
       'overflow-x': 'hidden',
-      'overflow-y': 'hidden'
     };
 
 
@@ -112,18 +119,24 @@
     var Prop = {
 
       left: {
-        properties: {top: '0', left: '0', transform: 'translateX(-100%)'},
-        activateAnimation: {transform: 'translateX(0)'},
-        deactivateAnimation: {transform: 'translateX(-100%)'},
+        properties: function() {
+          var left = '-' + $sliiider.width() + 'px';
+          return {top: '0', left: left};
+        },
+        activateAnimation: {transform: 'translateX(100%)'},
+        deactivateAnimation: {transform: 'translateX(0)'},
         size: function (wHeight, wWidth) {
           return {height: wHeight};
         }
       },
 
       right: {
-        properties: {top: '0', right: '0', transform: 'translateX(100%)'},
-        activateAnimation: {transform: 'translateX(0)'},
-        deactivateAnimation: {transform: 'translateX(100%)'},
+        properties: function() {
+          var right = '-' + $sliiider.width() + 'px';
+          return {top: '0', right: right};
+        },
+        activateAnimation: {transform: 'translateX(-100%)'},
+        deactivateAnimation: {transform: 'translateX(0)'},
         size: function (wHeight, wWidth) {
           return {height: wHeight};
         }
@@ -131,18 +144,24 @@
       },
 
       top: {
-        properties: {top: '0', right: '0', left:'0', transform: 'translateY(-100%)'},
-        activateAnimation: {transform: 'translateY(0)'},
-        deactivateAnimation: {transform: 'translateY(-100%)'},
+        properties: function() {
+          var top = '-' + $sliiider.height() + 'px';
+          return {left: '0', right:'0', top: top};
+        },
+        activateAnimation: {transform: 'translateY(100%)'},
+        deactivateAnimation: {transform: 'translateY(0)'},
         size: function (wHeight, wWidth) {
           return {width: wWidth};
         }
       },
 
       bottom: {
-        properties: {bottom: '0', right: '0', left:'0', transform: 'translateY(100%)'},
-        activateAnimation: {transform: 'translateY(0)'},
-        deactivateAnimation: {transform: 'translateY(100%)'},
+        properties: function() {
+          var bottom = '-' + $sliiider.height() + 'px';
+          return {left:0, right:0 , bottom: bottom};
+        },
+        activateAnimation: {transform: 'translateY(-100%)'},
+        deactivateAnimation: {transform: 'translateY(0)'},
         size: function (wHeight, wWidth) {
           return {width: wWidth};
         }
@@ -177,6 +196,7 @@
     windowSize.width = $(window).width() + scroll;
     newSize = Prop[settings.place].size(windowSize.height, windowSize.width);
     $sliiider.css(newSize);
+    $sliiider.css(prefixCSS(Prop[settings.place].properties()));
     setSlideDistance();
   };
 
@@ -197,7 +217,7 @@
 
   var prepare = function() {
     $sliiider.css(prefixCSS(prepareProperties));
-    $sliiider.css(prefixCSS(Prop[settings.place]["properties"]));
+    $sliiider.css(prefixCSS(Prop[settings.place].properties()));
     setSlideDistance();
   };
 
@@ -233,7 +253,9 @@
     if(settings.body_slide)
       {
       $body.css(prefixCSS(bodySlidePrepare));
-      $body.css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
+      $('html').css(htmlProp);
+      $body.children().css(prefixCSS(bodyChildrenProp));
+      $body.children().css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
       if((ie !== false) && (ie <= 11))
         {
           $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
@@ -246,14 +268,14 @@
       var sliiiderHeight = $sliiider.height();
       var sliiiderOffsetTop = $sliiider.offset().top;
 
-      if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom" && !(ie && ie <= 11 && settings.place ==="top"))
-        {
-          $sliiider.css('top', scrollTop);
-        }
-      if(((sliiiderOffsetTop !== scrollTop + windowHeight) && (settings.place === "bottom")))
-        {
-        $sliiider.css('top', scrollTop + windowHeight - sliiiderHeight).css('bottom','');
-        }
+      // if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom" && !(ie && ie <= 11 && settings.place ==="top"))
+      //   {
+      //     $sliiider.css('top', scrollTop);
+      //   }
+      // if(((sliiiderOffsetTop !== scrollTop + windowHeight) && (settings.place === "bottom")))
+      //   {
+      //   $sliiider.css('top', scrollTop + windowHeight - sliiiderHeight).css('bottom','');
+      //   }
       }
 
     else {
@@ -270,6 +292,7 @@
   var hideSlider = function(e) {
     $sliiider.css('visibility','hidden');
     $body.css(bodyResetProp);
+    $('html').css(bodyResetProp);
     $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
     prepare();
   };
@@ -279,7 +302,7 @@
     $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
 
     if(settings.body_slide) {
-      $body.css(prefixCSS(bodySlideProp[settings.place].deactivateAnimation));
+      $body.children().css(prefixCSS(bodySlideProp[settings.place].deactivateAnimation));
       if((ie !== false) && (ie <= 11))
         {$sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));}
     }
@@ -298,6 +321,7 @@
   siiize();
   prepare();
   $(window).resize(siiize);
+  $sliiider.resize(siiize);
 
   var handleToggle = function() {
     if (!clicked)
@@ -322,7 +346,6 @@
     reset: function(name) {
       $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
       deactivate();
-      // $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
     },
     deactivate: function() {deactivate();},
     activate: function() {activate();}
