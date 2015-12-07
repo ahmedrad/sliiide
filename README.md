@@ -13,7 +13,7 @@ The plugin is built on jQuery 2.1.0 but could potentially work with older and ne
 ##How to use it?
 1- Download the sliiide js file (or the minified version) from the github repo, include the js file before the body end tag and make sure jQuery is included before it
 
-2- you’ll need a div (a nav menu or whatever you have in mind) and set its visibility to hidden. You also need a settings object. PLEASE MAKE SURE THIS DIV IS A DIRECT CHILD OF THE BODY ELEMENT.
+2- you’ll need a div (a nav menu or whatever you have in mind) and set its visibility to hidden. PLEASE MAKE SURE THIS DIV IS A DIRECT CHILD OF THE BODY ELEMENT. You also need a settings object. 
 ```
 	var settings = {
       		toggle: "#sliiider-toggle", // the selector for the menu toggle, whatever clickable element you want to activate or deactivate the menu. A click listener will be added to this element.
