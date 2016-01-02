@@ -11,7 +11,7 @@ The plugin is built on jQuery 2.1.0 but could potentially work with older and ne
 ####this plugin officially supports chrome, firefox, safari, IE 10/11 and Edge
 
 ##How to use it?
-1- Download the sliiide js file (or the minified version) from the github repo, include the js file before the body end tag and make sure jQuery is included before it
+1- Download the sliiide js file (or the minified version) from the github repo, include the js file before the body end tag and make sure jQuery is included before it. Or just use bower "bower install sliiide"
 
 2- you’ll need a div (a nav menu or whatever you have in mind) and set its visibility to hidden. PLEASE MAKE SURE THIS DIV IS A DIRECT CHILD OF THE BODY ELEMENT. You also need a settings object. 
 ```
