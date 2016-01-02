@@ -31,7 +31,7 @@
       place: "right",
       animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
       body_slide: true,
-      no_scroll: true,
+      no_scroll: false,
     }, options );
 
     var newSize;
