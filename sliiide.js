@@ -29,9 +29,11 @@
       exit_selector: ".slider-exit",
       animation_duration: "0.5s",
       place: "right",
-      animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
+      animation_curve: "ease",//cubic-bezier(0.54, 0.01, 0.57, 1.03)",
       body_slide: true,
       no_scroll: false,
+      shadow: false,
+      shadow_settings: {'background-color': 'black', opacity: '0.5', 'z-index':'5000'}
     }, options );
 
     var newSize;
@@ -40,6 +42,7 @@
     var $toggle = $(settings.toggle);
     var $exit = $(settings.exit_selector);
     var $body = $('body');
+    var $shadow = $('<div id="sliiider-shadow"></div>')
     var bodySlideDistance;
 
     var bodyResetProp = {
@@ -59,6 +62,37 @@
       bottom:'',
       right:''
     };
+
+    var shadowResetProp = {
+      width: '0',
+      height: '0',
+      visibility: 'hidden',
+      opacity: '0'
+    }
+
+    var shadowPrepareProp = {
+      position: 'fixed',
+      visibility: 'hidden',
+      opacity: '0',
+      transition: 'opacity ' + settings.animation_duration + ' ' + settings.animation_curve + ',' + 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
+      top: '0',
+      left: '0',
+      width: '0',
+      height: '0',
+      'background-color': settings.shadow_settings['background-color']
+    }
+
+    var shadowProp = {
+      visibility: 'visibile',
+      height: '100vh',
+      width: '100vw',
+      opacity: settings.shadow_settings.opacity,
+      'z-index': settings.shadow_settings['z-index']
+    };
+
+    var shadowHideProp = {
+      opacity: '0'
+    }
 
     var prepareProperties = {
       visibility: 'hidden',
@@ -123,6 +157,7 @@
           var left = '-' + $sliiider.width() + 'px';
           return {top: '0', left: left};
         },
+        shadowActivateAnimation: function(distance) {return translateX(distance)},
         activateAnimation: {transform: 'translateX(100%)'},
         deactivateAnimation: {transform: 'translateX(0)'},
         size: function (wHeight, wWidth) {
@@ -135,6 +170,7 @@
           var right = '-' + $sliiider.width() + 'px';
           return {top: '0', right: right};
         },
+        shadowActivateAnimation: function(distance) {return translateX(-distance)},
         activateAnimation: {transform: 'translateX(-100%)'},
         deactivateAnimation: {transform: 'translateX(0)'},
         size: function (wHeight, wWidth) {
@@ -201,8 +237,7 @@
   };
 
   var setSlideDistance = function() {
-    if(settings.body_slide)
-    {
+    if(settings.body_slide || settings.shadow) {
       if(settings.place === 'right' || settings.place === 'left')
       {
         bodySlideDistance = $sliiider.width();
@@ -211,6 +246,8 @@
       {
         bodySlideDistance = $sliiider.height();
       }
+    }
+    if(settings.body_slide) {
       bodySlideProp['set'+settings.place](bodySlideDistance);
     }
   };
@@ -219,6 +256,11 @@
     $sliiider.css(prefixCSS(prepareProperties));
     $sliiider.css(prefixCSS(Prop[settings.place].properties()));
     setSlideDistance();
+    if(settings.shadow)
+    {
+      $shadow.css(shadowPrepareProp);
+      $body.append($shadow);
+    }
   };
 
   var getScrollBarWidth = function() {
@@ -234,9 +276,9 @@
     outer.style.width = "200px";
     outer.style.height = "150px";
     outer.style.overflow = "hidden";
-    outer.appendChild (inner);
+    outer.appendChild(inner);
 
-    document.body.appendChild (outer);
+    document.body.appendChild(outer);
     var w1 = inner.offsetWidth;
     outer.style.overflow = 'scroll';
     var w2 = inner.offsetWidth;
@@ -249,36 +291,25 @@
 
   var activate = function() {
     siiize(); //sets the size of the slider menu and the distance the body will travel on sliding
+
     $sliiider.css('visibility','visible');
-    if(settings.body_slide)
-      {
-      $body.css(prefixCSS(bodySlidePrepare));
-      $('html').css(htmlProp);
-      $body.children().css(prefixCSS(bodyChildrenProp));
-      $body.children().css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
-      if((ie !== false) && (ie <= 11))
-        {
-          $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
+    if(settings.body_slide) {
+        $body.css(prefixCSS(bodySlidePrepare));
+        $('html').css(htmlProp);
+        if(settings.shadow) {
+          $shadow.css(shadowProp);
         }
-
-      //dealing with the browser bug of inability to transform fixed elements
-
-      var windowHeight = $(window).height();
-      var scrollTop = $(window).scrollTop();
-      var sliiiderHeight = $sliiider.height();
-      var sliiiderOffsetTop = $sliiider.offset().top;
-
-      // if((sliiiderOffsetTop !== scrollTop) && settings.place !== "bottom" && !(ie && ie <= 11 && settings.place ==="top"))
-      //   {
-      //     $sliiider.css('top', scrollTop);
-      //   }
-      // if(((sliiiderOffsetTop !== scrollTop + windowHeight) && (settings.place === "bottom")))
-      //   {
-      //   $sliiider.css('top', scrollTop + windowHeight - sliiiderHeight).css('bottom','');
-      //   }
-      }
+        $body.children().not($shadow).css(prefixCSS(bodyChildrenProp));
+        $body.children().css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
+        if((ie !== false) && (ie <= 11)) {
+            $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
+        }
+    }
 
     else {
+      if(settings.shadow) {
+        $shadow.css(prefixCSS(shadowProp)).css(prefixCSS(Prop[settings.place].shadowActivateAnimation(bodySlideDistance)));
+      }
       $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
     }
 
@@ -294,6 +325,10 @@
     $body.css(bodyResetProp);
     $('html').css(bodyResetProp);
     $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
+    if(settings.shadow) {
+      $shadow.css(shadowResetProp);
+      $shadow.remove();
+    }
     prepare();
   };
 
@@ -309,6 +344,13 @@
 
     else {
       $sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));
+      if(settings.shadow) {
+        $shadow.css(prefixCSS(Prop[settings.place].deactivateAnimation));
+      }
+    }
+
+    if(settings.shadow) {
+      $shadow.css(shadowHideProp);
     }
 
     if(settings.no_scroll)  {
@@ -333,6 +375,7 @@
   $toggle.click(handleToggle);
   $sliiider.find('a').on('click', function() {deactivate();});
   $exit.on('click', function() {deactivate();});
+  $body.on('click', '#sliiider-shadow', function() {deactivate();});
 
   var deleteProp = function() {
     $body.css(bodyResetProp);
