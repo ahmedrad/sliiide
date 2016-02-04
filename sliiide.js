@@ -1,6 +1,6 @@
 (function ($) {
 
-//get IE version if browser is IE
+  //get IE version if browser is IE
   var ie = (function detectIE() {
     var ua = window.navigator.userAgent;
 
@@ -42,275 +42,274 @@
     var $toggle = $(settings.toggle);
     var $exit = $(settings.exit_selector);
     var $body = $('body');
-    var $shadow = $('<div id="sliiider-shadow"></div>')
+    var $shadow = $('<div id="sliiider-shadow"></div>');
     var bodySlideDistance;
 
-    var bodyResetProp = {
-      transform: '',
-      'overflow-x': '',
-      transition: '',
-      position: ''
-    };
-
-    var sliiiderResetProp = {
-      transform: '',
-      transition: '',
-      width: '',
-      height: '',
-      left: '',
-      top:'',
-      bottom:'',
-      right:''
-    };
-
-    var shadowResetProp = {
-      width: '0',
-      height: '0',
-      visibility: 'hidden',
-      opacity: '0'
-    }
-
-    var shadowPrepareProp = {
-      position: 'fixed',
-      visibility: 'hidden',
-      opacity: '0',
-      transition: 'opacity ' + settings.animation_duration + ' ' + settings.animation_curve + ',' + 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
-      top: '0',
-      left: '0',
-      width: '0',
-      height: '0',
-      'background-color': settings.shadow_settings['background-color']
-    }
-
-    var shadowProp = {
-      visibility: 'visibile',
-      height: '100vh',
-      width: '100vw',
-      opacity: settings.shadow_settings.opacity,
-      'z-index': settings.shadow_settings['z-index']
-    };
-
-    var shadowHideProp = {
-      opacity: '0'
-    }
-
-    var prepareProperties = {
-      visibility: 'hidden',
-      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
-      position: 'fixed'
-    };
-
-    var bodyChildrenProp = {
-      transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve
-    };
-
-    var htmlProp = {
-      'overflow-x': 'hidden'
-    };
-
-    var bodySlidePrepare = {
-      position: 'relative', // to make overflow-x hidden work with mobile browsers
-      'overflow-x': 'hidden',
-    };
-
-
-    var bodySlideProp = {
-
-      setleft: function(distance) {
-        this.left.activateAnimation.transform = 'translateX('+distance+'px)';
-        this.left.deactivateAnimation.transform = 'translateX(0px)';
+    var bodyProp = {
+      'reset': {
+        transform: '',
+        'overflow-x': '',
+        transition: '',
+        position: ''
       },
-      setright: function(distance) {
-        this.right.activateAnimation.transform = 'translateX(-'+distance+'px)';
-        this.right.deactivateAnimation.transform = 'translateX(0px)';
+      slide: {
+        setleft: function(distance) {
+          this.left.activateAnimation.transform = 'translateX('+distance+'px)';
+          this.left.deactivateAnimation.transform = 'translateX(0px)';
+        },
+        setright: function(distance) {
+          this.right.activateAnimation.transform = 'translateX(-'+distance+'px)';
+          this.right.deactivateAnimation.transform = 'translateX(0px)';
+        },
+        setbottom: function(distance) {
+          this.bottom.activateAnimation.transform = 'translateY(-'+distance+'px)';
+          this.bottom.deactivateAnimation.transform = 'translateY(0px)';
+        },
+        settop: function(distance) {
+          this.top.activateAnimation.transform = 'translateY('+distance+'px)';
+          this.top.deactivateAnimation.transform = 'translateY(0px)';
+        },
+        left: {
+          activateAnimation: {transform:''},
+          deactivateAnimation: {transform: ''}
+        },
+        right: {
+          activateAnimation: {transform: ''},
+          deactivateAnimation: {transform: ''}
+        },
+        top: {
+          activateAnimation: {transform: ''},
+          deactivateAnimation: {transform: ''}
+        },
+        bottom: {
+          activateAnimation: {transform: ''},
+          deactivateAnimation: {transform: ''}
+        }
       },
-      setbottom: function(distance) {
-        this.bottom.activateAnimation.transform = 'translateY(-'+distance+'px)';
-        this.bottom.deactivateAnimation.transform = 'translateY(0px)';
-      },
-      settop: function(distance) {
-        this.top.activateAnimation.transform = 'translateY('+distance+'px)';
-        this.top.deactivateAnimation.transform = 'translateY(0px)';
-      },
-      left: {
-        activateAnimation: {transform:''},
-        deactivateAnimation: {transform: ''}
-      },
-      right: {
-        activateAnimation: {transform: ''},
-        deactivateAnimation: {transform: ''}
-      },
-      top: {
-        activateAnimation: {transform: ''},
-        deactivateAnimation: {transform: ''}
-      },
-      bottom: {
-        activateAnimation: {transform: ''},
-        deactivateAnimation: {transform: ''}
+      prepare: {
+        position: 'relative', // to make overflow-x hidden work with mobile browsers
+        'overflow-x': 'hidden',
       }
     };
 
-    var Prop = {
-
-      left: {
-        properties: function() {
-          var left = '-' + $sliiider.width() + 'px';
-          return {top: '0', left: left};
-        },
-        shadowActivateAnimation: function(distance) {return translateX(distance)},
-        activateAnimation: {transform: 'translateX(100%)'},
-        deactivateAnimation: {transform: 'translateX(0)'},
-        size: function (wHeight, wWidth) {
-          return {height: wHeight};
-        }
+    var shadowProp = {
+      'reset': {
+        width: '0',
+        height: '0',
+        visibility: 'hidden',
+        opacity: '0'
       },
-
-      right: {
-        properties: function() {
-          var right = '-' + $sliiider.width() + 'px';
-          return {top: '0', right: right};
-        },
-        shadowActivateAnimation: function(distance) {return translateX(-distance)},
-        activateAnimation: {transform: 'translateX(-100%)'},
-        deactivateAnimation: {transform: 'translateX(0)'},
-        size: function (wHeight, wWidth) {
-          return {height: wHeight};
-        }
-
+      prepare: {
+        position: 'fixed',
+        visibility: 'hidden',
+        opacity: '0',
+        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve  + ',' + ' opacity ' + settings.animation_duration + ' ' + settings.animation_curve,
+        top: '0',
+        left: '0',
+        width: '0',
+        height: '0',
+        'background-color': settings.shadow_settings['background-color']
       },
-
-      top: {
-        properties: function() {
-          var top = '-' + $sliiider.height() + 'px';
-          return {left: '0', right:'0', top: top};
-        },
-        activateAnimation: {transform: 'translateY(100%)'},
-        deactivateAnimation: {transform: 'translateY(0)'},
-        size: function (wHeight, wWidth) {
-          return {width: wWidth};
-        }
+      active: {
+        visibility: 'visibile',
+        height: '100vh',
+        width: '100vw',
+        opacity: settings.shadow_settings.opacity,
+        'z-index': settings.shadow_settings['z-index']
       },
+      hide: {
+       opacity: '0',
+       heith: '0',
+       width: '0'
+      }
+    }
 
-      bottom: {
-        properties: function() {
-          var bottom = '-' + $sliiider.height() + 'px';
-          return {left:0, right:0 , bottom: bottom};
+    var sliiiderProp = {
+      prepare: {
+        visibility: 'hidden',
+        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
+        position: 'fixed'
+      },
+      'reset': {
+        transform: '',
+        transition: '',
+        width: '',
+        height: '',
+        left: '',
+        top:'',
+        bottom:'',
+        right:''
+      },
+      slide: {
+        left: {
+          properties: function() {
+            var left = '-' + $sliiider.width() + 'px';
+            return {top: '0', left: left};
+          },
+          shadowActivateAnimation: function(distance) {return {transform: 'translateX('+distance+'px)'}},
+          activateAnimation: {transform: 'translateX(100%)'},
+          deactivateAnimation: {transform: 'translateX(0)'},
+          size: function (wHeight, wWidth) {
+            return {height: wHeight};
+          }
         },
-        activateAnimation: {transform: 'translateY(-100%)'},
-        deactivateAnimation: {transform: 'translateY(0)'},
-        size: function (wHeight, wWidth) {
-          return {width: wWidth};
+        right: {
+          properties: function() {
+            var right = '-' + $sliiider.width() + 'px';
+            return {top: '0', right: right};
+          },
+          shadowActivateAnimation: function(distance) {return {transform: 'translateX('+ -distance +'px)'}},
+          activateAnimation: {transform: 'translateX(-100%)'},
+          deactivateAnimation: {transform: 'translateX(0)'},
+          size: function (wHeight, wWidth) {
+            return {height: wHeight};
+          }
+        },
+        top: {
+          properties: function() {
+            var top = '-' + $sliiider.height() + 'px';
+            return {left: '0', right:'0', top: top};
+          },
+          shadowActivateAnimation: function(distance) {return {transform: 'translateY('+ distance +'px)'}},
+          activateAnimation: {transform: 'translateY(100%)'},
+          deactivateAnimation: {transform: 'translateY(0)'},
+          size: function (wHeight, wWidth) {
+            return {width: wWidth};
+          }
+        },
+
+        bottom: {
+          properties: function() {
+            var bottom = '-' + $sliiider.height() + 'px';
+            return {left:0, right:0 , bottom: bottom};
+          },
+          shadowActivateAnimation: function(distance) {return {transform: 'translateY('+ -distance +'px)'}},
+          activateAnimation: {transform: 'translateY(-100%)'},
+          deactivateAnimation: {transform: 'translateY(0)'},
+          size: function (wHeight, wWidth) {
+            return {width: wWidth};
+          }
         }
+      }
+    };
+
+    var bodyChildrenProp = {
+      prepare: {
+        transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve
+      }
+    };
+
+    var htmlProp = {
+      prepare: {
+        'overflow-x': 'hidden'
       }
     };
 
     var prefixCSS = function(cssProp) {
       $.each(cssProp, function(k, v) {
-        if(k === 'transition')
-        { var trnsCSS = {};
-        var trnsProp = v.split(' ',1)[0];
-        var trnsAttr = v.split(' '); trnsAttr.shift(); trnsAttr = trnsAttr.join(' ');
-        trnsCSS['-webkit-'+k] = '-webkit-' + trnsProp + ' ' + trnsAttr;
-        trnsCSS['-ms-'+k] = '-ms-' + trnsProp + ' ' + trnsAttr;
-        $.extend(cssProp, trnsCSS);
+        if(k === 'transition') {
+          var trnsCSS = {};
+          var trnsProp = v.split(' ',1)[0];
+          var trnsAttr = v.split(' '); trnsAttr.shift(); trnsAttr = trnsAttr.join(' ');
+          trnsCSS['-webkit-'+k] = '-webkit-' + trnsProp + ' ' + trnsAttr;
+          trnsCSS['-ms-'+k] = '-ms-' + trnsProp + ' ' + trnsAttr;
+          $.extend(cssProp, trnsCSS);
+        }
+        else if (k === 'transform') {
+          var trnsfCSS = {};
+          trnsfCSS['-webkit-'+k] = v;
+          trnsfCSS['-ms-'+k] = v;
+        }
+      });
+      return cssProp;
+    };
+
+    var siiize = function() {
+      var windowSize = {};
+      var scroll = getScrollBarWidth();
+      windowSize.height = $(window).height();
+      windowSize.width = $(window).width() + scroll;
+      newSize = sliiiderProp.slide[settings.place].size(windowSize.height, windowSize.width);
+      $sliiider.css(newSize);
+      $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].properties()));
+      setSlideDistance();
+    };
+
+    var setSlideDistance = function() {
+      if(settings.body_slide || settings.shadow) {
+        if(settings.place === 'right' || settings.place === 'left')
+        {
+          bodySlideDistance = $sliiider.width();
+        }
+        else
+        {
+          bodySlideDistance = $sliiider.height();
+        }
       }
-      else if (k === 'transform')
+      if(settings.body_slide) {
+        bodyProp.slide['set'+settings.place](bodySlideDistance);
+      }
+    };
+
+    var prepare = function() {
+      $sliiider.css(prefixCSS(sliiiderProp.prepare));
+      $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].properties()));
+      setSlideDistance();
+      if(settings.shadow)
       {
-        var trnsfCSS = {};
-        trnsfCSS['-webkit-'+k] = v;
-        trnsfCSS['-ms-'+k] = v;
+        $shadow.css(prefixCSS(shadowProp.prepare));
       }
-    });
+    };
 
-    return cssProp;
-  };
+    var getScrollBarWidth = function() {
+      var inner = document.createElement('p');
+      inner.style.width = "100%";
+      inner.style.height = "200px";
 
-  var siiize = function() {
-    var windowSize = {};
-    var scroll = getScrollBarWidth();
-    windowSize.height = $(window).height();
-    windowSize.width = $(window).width() + scroll;
-    newSize = Prop[settings.place].size(windowSize.height, windowSize.width);
-    $sliiider.css(newSize);
-    $sliiider.css(prefixCSS(Prop[settings.place].properties()));
-    setSlideDistance();
-  };
+      var outer = document.createElement('div');
+      outer.style.position = "absolute";
+      outer.style.top = "0px";
+      outer.style.left = "0px";
+      outer.style.visibility = "hidden";
+      outer.style.width = "200px";
+      outer.style.height = "150px";
+      outer.style.overflow = "hidden";
+      outer.appendChild(inner);
 
-  var setSlideDistance = function() {
-    if(settings.body_slide || settings.shadow) {
-      if(settings.place === 'right' || settings.place === 'left')
-      {
-        bodySlideDistance = $sliiider.width();
-      }
-      else
-      {
-        bodySlideDistance = $sliiider.height();
-      }
-    }
-    if(settings.body_slide) {
-      bodySlideProp['set'+settings.place](bodySlideDistance);
-    }
-  };
+      document.body.appendChild(outer);
+      var w1 = inner.offsetWidth;
+      outer.style.overflow = 'scroll';
+      var w2 = inner.offsetWidth;
+      if (w1 === w2) { w2 = outer.clientWidth; }
 
-  var prepare = function() {
-    $sliiider.css(prefixCSS(prepareProperties));
-    $sliiider.css(prefixCSS(Prop[settings.place].properties()));
-    setSlideDistance();
-    if(settings.shadow)
-    {
-      $shadow.css(shadowPrepareProp);
-      $body.append($shadow);
-    }
-  };
+      document.body.removeChild (outer);
 
-  var getScrollBarWidth = function() {
-    var inner = document.createElement('p');
-    inner.style.width = "100%";
-    inner.style.height = "200px";
-
-    var outer = document.createElement('div');
-    outer.style.position = "absolute";
-    outer.style.top = "0px";
-    outer.style.left = "0px";
-    outer.style.visibility = "hidden";
-    outer.style.width = "200px";
-    outer.style.height = "150px";
-    outer.style.overflow = "hidden";
-    outer.appendChild(inner);
-
-    document.body.appendChild(outer);
-    var w1 = inner.offsetWidth;
-    outer.style.overflow = 'scroll';
-    var w2 = inner.offsetWidth;
-    if (w1 === w2) { w2 = outer.clientWidth; }
-
-    document.body.removeChild (outer);
-
-    return (w1 - w2);
-  };
+      return (w1 - w2);
+    };
 
   var activate = function() {
     siiize(); //sets the size of the slider menu and the distance the body will travel on sliding
 
     $sliiider.css('visibility','visible');
     if(settings.body_slide) {
-        $body.css(prefixCSS(bodySlidePrepare));
-        $('html').css(htmlProp);
+        $body.css(prefixCSS(bodyProp.prepare));
+        $('html').css(htmlProp.prepare);
         if(settings.shadow) {
-          $shadow.css(shadowProp);
+          $shadow.css(shadowProp.active);
         }
-        $body.children().not($shadow).css(prefixCSS(bodyChildrenProp));
-        $body.children().css(prefixCSS(bodySlideProp[settings.place].activateAnimation));
+        $body.children().not($shadow).css(prefixCSS(bodyChildrenProp.prepare));
+        $body.children().css(prefixCSS(bodyProp.slide[settings.place].activateAnimation));
         if((ie !== false) && (ie <= 11)) {
-            $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
+            $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].activateAnimation));
         }
     }
 
     else {
       if(settings.shadow) {
-        $shadow.css(prefixCSS(shadowProp)).css(prefixCSS(Prop[settings.place].shadowActivateAnimation(bodySlideDistance)));
+        $shadow.css(prefixCSS(shadowProp.active));
+        $shadow.css(prefixCSS(sliiiderProp.slide[settings.place].shadowActivateAnimation(bodySlideDistance)));
       }
-      $sliiider.css(prefixCSS(Prop[settings.place].activateAnimation));
+      $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].activateAnimation));
     }
 
     if(settings.no_scroll)  {
@@ -322,14 +321,13 @@
 
   var hideSlider = function(e) {
     $sliiider.css('visibility','hidden');
-    $body.css(bodyResetProp);
-    $('html').css(bodyResetProp);
+    $body.css(bodyProp['reset']);
+    $('html').css(bodyProp['reset']);
     $body.unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
-    if(settings.shadow) {
-      $shadow.css(shadowResetProp);
-      $shadow.remove();
-    }
     prepare();
+    if(settings.shadow) {
+      $shadow.css(shadowProp['reset']);
+    }
   };
 
   function deactivate() {
@@ -337,20 +335,20 @@
     $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', hideSlider);
 
     if(settings.body_slide) {
-      $body.children().css(prefixCSS(bodySlideProp[settings.place].deactivateAnimation));
+      $body.children().css(prefixCSS(bodyProp.slide[settings.place].deactivateAnimation));
       if((ie !== false) && (ie <= 11))
-        {$sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));}
+        {$sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].deactivateAnimation));}
     }
 
     else {
-      $sliiider.css(prefixCSS(Prop[settings.place].deactivateAnimation));
+      $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].deactivateAnimation));
       if(settings.shadow) {
-        $shadow.css(prefixCSS(Prop[settings.place].deactivateAnimation));
+        $shadow.css(prefixCSS(sliiiderProp.slide[settings.place].deactivateAnimation));
       }
     }
 
     if(settings.shadow) {
-      $shadow.css(shadowHideProp);
+      $shadow.css(shadowProp.hide);
     }
 
     if(settings.no_scroll)  {
@@ -364,6 +362,9 @@
   prepare();
   $(window).resize(siiize);
   $sliiider.resize(siiize);
+  if(!$body.children().is($shadow)) {
+    $body.append($shadow);
+  }
 
   var handleToggle = function() {
     if (!clicked)
@@ -378,20 +379,28 @@
   $body.on('click', '#sliiider-shadow', function() {deactivate();});
 
   var deleteProp = function() {
-    $body.css(bodyResetProp);
-    $sliiider.css(sliiiderResetProp);
+    $body.css(bodyProp['reset']);
+    $sliiider.css(sliiiderProp['reset']);
     $(window).off('resize', siiize);
     $toggle.off('click', handleToggle);
+    $shadow.css(shadowProp['reset']);
+    $shadow.remove();
   };
 
 
   var menu = {
-    reset: function(name) {
-      $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
-      deactivate();
+    reset: function() {
+      if(this.stateClicked()) {
+        $body.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', deleteProp);
+        deactivate();
+      }
+      else {
+        deleteProp();
+      }
     },
     deactivate: function() {deactivate();},
-    activate: function() {activate();}
+    activate: function() {activate();},
+    stateClicked: function() {return clicked;}
   };
 
   return menu;

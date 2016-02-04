@@ -214,7 +214,7 @@ sizeTopMenu();
 $(window).resize(sizeTopMenu);
 
 var $navIcon = $('#nav-icon2')
-var menu = $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#nav-icon2', no_scroll: false, shadow: true});
+var menu = $('.left-menu').sliiide({place: 'left', exit_selector: '.left-exit', toggle: '#nav-icon2', no_scroll: false, shadow: true, body_slide: false});
 var notes = $('.note');
 var toggles = $('.slider-toggle')
 var clickHandler = function() {
@@ -230,7 +230,7 @@ var clickHandler = function() {
   $('.sliding-menu').not('.'+menuPlace).addClass('display-off');
   $button.addClass('selected');
   $('.slider-toggle').not($button).removeClass('selected');
-  menu = $('.'+menuPlace).sliiide({place: place, exit_selector: '.'+place+'-exit', toggle: '#nav-icon2', no_scroll: false, shadow: true});
+  menu = $('.'+menuPlace).sliiide({place: place, exit_selector: '.'+place+'-exit', toggle: '#nav-icon2', no_scroll: false, shadow: true, body_slide: false});
   $navIcon.addClass('flip');
   $('.note[data-link="'+menuPlace+'"]').fadeIn(700).css('display','').removeClass('display-off');
   $('.'+menuPlace).removeClass('display-off');
