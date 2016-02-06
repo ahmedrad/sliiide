@@ -111,7 +111,7 @@
         'background-color': settings.shadow_settings['background-color']
       },
       active: {
-        visibility: 'visibile',
+        visibility: 'visible',
         height: '100vh',
         width: '100vw',
         opacity: settings.shadow_settings.opacity,
