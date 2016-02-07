@@ -15,6 +15,7 @@
   cursor: pointer;
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
+  z-index: 100;
 }
 
 

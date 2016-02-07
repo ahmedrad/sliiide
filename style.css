@@ -86,6 +86,7 @@ h2 {
   visibility: hidden;
   position: fixed;
   overflow: hidden;
+  z-index: 200;
 }
 
 .sliding-menu a, .sliding-menu p {
