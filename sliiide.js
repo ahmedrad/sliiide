@@ -313,6 +313,7 @@
     }
 
     clicked = true;
+    $sliiider.trigger('sliiideOpen');
   };
 
   var hideSlider = function(e) {
@@ -352,6 +353,7 @@
     }
 
     clicked = false;
+    $sliiider.trigger('sliiideClose');
   }
 
   siiize();
