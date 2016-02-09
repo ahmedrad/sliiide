@@ -88,7 +88,7 @@
       },
       prepare: {
         position: 'relative', // to make overflow-x hidden work with mobile browsers
-        'overflow-x': 'hidden',
+        'overflow-x': 'hidden'
       }
     };
 
@@ -128,7 +128,8 @@
       prepare: {
         visibility: 'hidden',
         transition: 'transform ' + settings.animation_duration + ' ' + settings.animation_curve,
-        position: 'fixed'
+        position: 'fixed',
+        'z-index': settings.shadow_settings['z-index'] + 500
       },
       'reset': {
         transform: '',
@@ -307,7 +308,7 @@
     else {
       if(settings.shadow) {
         $shadow.css(prefixCSS(shadowProp.active));
-        $shadow.css(prefixCSS(sliiiderProp.slide[settings.place].shadowActivateAnimation(bodySlideDistance)));
+        // $shadow.css(prefixCSS(sliiiderProp.slide[settings.place].shadowActivateAnimation(bodySlideDistance)));
       }
       $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].activateAnimation));
     }
