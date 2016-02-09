@@ -147,7 +147,6 @@
             var left = '-' + $sliiider.width() + 'px';
             return {top: '0', left: left};
           },
-          shadowActivateAnimation: function(distance) {return {transform: 'translateX('+distance+'px)'}},
           activateAnimation: {transform: 'translateX(100%)'},
           deactivateAnimation: {transform: 'translateX(0)'},
           size: function (wHeight, wWidth) {
@@ -159,7 +158,6 @@
             var right = '-' + $sliiider.width() + 'px';
             return {top: '0', right: right};
           },
-          shadowActivateAnimation: function(distance) {return {transform: 'translateX('+ -distance +'px)'}},
           activateAnimation: {transform: 'translateX(-100%)'},
           deactivateAnimation: {transform: 'translateX(0)'},
           size: function (wHeight, wWidth) {
@@ -171,7 +169,6 @@
             var top = '-' + $sliiider.height() + 'px';
             return {left: '0', right:'0', top: top};
           },
-          shadowActivateAnimation: function(distance) {return {transform: 'translateY('+ distance +'px)'}},
           activateAnimation: {transform: 'translateY(100%)'},
           deactivateAnimation: {transform: 'translateY(0)'},
           size: function (wHeight, wWidth) {
@@ -184,7 +181,6 @@
             var bottom = '-' + $sliiider.height() + 'px';
             return {left:0, right:0 , bottom: bottom};
           },
-          shadowActivateAnimation: function(distance) {return {transform: 'translateY('+ -distance +'px)'}},
           activateAnimation: {transform: 'translateY(-100%)'},
           deactivateAnimation: {transform: 'translateY(0)'},
           size: function (wHeight, wWidth) {
@@ -308,7 +304,6 @@
     else {
       if(settings.shadow) {
         $shadow.css(prefixCSS(shadowProp.active));
-        // $shadow.css(prefixCSS(sliiiderProp.slide[settings.place].shadowActivateAnimation(bodySlideDistance)));
       }
       $sliiider.css(prefixCSS(sliiiderProp.slide[settings.place].activateAnimation));
     }
