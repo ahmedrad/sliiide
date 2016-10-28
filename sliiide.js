@@ -332,13 +332,11 @@
   };
 
   $toggle.click(handleToggle);
-<<<<<<< HEAD
-  $sliiider.find('a').on('click', function() {deactivate();});
-=======
+  
   if (settings.auto_close) {
     $sliiider.find('a').on('click', function() {deactivate();});
   }
->>>>>>> master
+
   $exit.on('click', function() {deactivate();});
 
   var deleteProp = function() {
