@@ -13,7 +13,7 @@ The plugin is built on jQuery 2.1.0 but could potentially work with older and ne
 ##How to use it?
 1- Download the sliiide js file (or the minified version) from the github repo, include the js file before the body end tag and make sure jQuery is included before it. Or just use bower "bower install sliiide"
 
-2- you’ll need a div (a nav menu or whatever you have in mind) and set its visibility to hidden. PLEASE MAKE SURE THIS DIV IS A DIRECT CHILD OF THE BODY ELEMENT. You also need a settings object. 
+2- you’ll need a div (a nav menu or whatever you have in mind) and set its visibility to hidden. PLEASE MAKE SURE THIS DIV IS A DIRECT CHILD OF THE BODY ELEMENT. You also need a settings object.
 ```
 	var settings = {
       		toggle: "#sliiider-toggle", // the selector for the menu toggle, whatever clickable element you want to activate or deactivate the menu. A click listener will be added to this element.
@@ -22,7 +22,8 @@ The plugin is built on jQuery 2.1.0 but could potentially work with older and ne
      		place: "left", //where is the menu sliding from, possible options are (left | right | top | bottom)
       		animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)", //animation curve for the sliding animation
       		body_slide: true, //set it to true if you want to use the effect where the entire page slides and not just the div
-     		no_scroll: true //set to true if you want the scrolling disabled while the menu is active
+     		no_scroll: true, //set to true if you want the scrolling disabled while the menu is active
+				auto_close: false //set to true if you want the slider to auto close everytime a child link of it is clicked
     			};
 
 	$(‘#menu’).sliiide(settings); //initialize sliiide
@@ -38,4 +39,3 @@ The plugin is built on jQuery 2.1.0 but could potentially work with older and ne
   menu.reset(); //removes all the css that sliiide added to any element
 ```
 That’s it, you now should be good to go, feel free to report back any issues you encounter I’m happy to continue working on this.
-
