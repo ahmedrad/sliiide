@@ -31,7 +31,12 @@
       place: "right",
       animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
       body_slide: true,
+<<<<<<< HEAD
       no_scroll: true,
+=======
+      no_scroll: false,
+      auto_close: false
+>>>>>>> master
     }, options );
 
     var newSize;
@@ -331,7 +336,13 @@
   };
 
   $toggle.click(handleToggle);
+<<<<<<< HEAD
   $sliiider.find('a').on('click', function() {deactivate();});
+=======
+  if (settings.auto_close) {
+    $sliiider.find('a').on('click', function() {deactivate();});
+  }
+>>>>>>> master
   $exit.on('click', function() {deactivate();});
 
   var deleteProp = function() {
