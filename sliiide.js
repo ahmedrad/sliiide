@@ -31,12 +31,8 @@
       place: "right",
       animation_curve: "cubic-bezier(0.54, 0.01, 0.57, 1.03)",
       body_slide: true,
-<<<<<<< HEAD
-      no_scroll: true,
-=======
       no_scroll: false,
       auto_close: false
->>>>>>> master
     }, options );
 
     var newSize;
